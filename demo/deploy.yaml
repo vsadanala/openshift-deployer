@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cddemo
+  name: cddemo-deployment
+  namespace: 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cddemo-instance
+  template:
+    metadata:
+      labels:
+        app: cddemo-instance
+    spec:
+      containers:
+      - name: cddemo
+        image: 
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: 'jdbc:postgresql:/db0'
+          - name: SPRING_DATASOURCE_USERNAME
+            value: user
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: password
+      imagePullSecrets:
+        - name: nexus-secrets
